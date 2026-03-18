@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">npsv-gestor-tintas-mobile</string>
+    <string name="app_name">Gestor Tintas</string>
+
+    <string name="login_title">Gestor Tintas</string>
+    <string name="login_subtitle">Portal do Vendedor</string>
+    <string name="login_email_label">E-mail</string>
+    <string name="login_email_hint">vendedor@loja.com</string>
+    <string name="login_password_label">Senha</string>
+    <string name="login_password_hint">Insira sua senha de acesso</string>
+    <string name="login_forgot_password">Esqueceu a senha?</string>
+    <string name="login_button_enter">Entrar no Sistema</string>
+    <string name="login_no_account">Ainda não tem conta? Solicitar Cadastro</string>
+
+    <string name="error_generic">Ocorreu um erro inesperado. Tenta novamente.</string>
+    <string name="error_empty_fields">Por favor, preenche todos os campos.</string>
+    <string name="error_invalid_credentials">E-mail ou senha incorretos.</string>
+
+    <string name="content_desc_logo">Logotipo do Gestor Tintas</string>
+    <string name="content_desc_hide_password">Ocultar senha</string>
+    <string name="content_desc_show_password">Mostrar senha</string>
 </resources>
