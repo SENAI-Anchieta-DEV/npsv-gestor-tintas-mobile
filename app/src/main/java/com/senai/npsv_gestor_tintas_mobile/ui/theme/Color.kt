@@ -1,14 +1,18 @@
 package com.senai.npsv_gestor_tintas_mobile.ui.theme
 
-import androidx.compose.ui.graphics.Color
 
-val SenaiRed = Color(0xFFE30014)
-val SenaiDarkRed = Color(0xFFA3000E)
-val BackgroundLight = Color(0xFFF5F5F5)
-val SurfaceLight = Color(0xFFFFFFFF)
-val TextPrimary = Color(0xFF212121)
-val TextSecondary = Color(0xFF757575)
+import androidx.compose.ui.graphics.Color // <-- IMPORTANTE ESTAR ASSIM
 
-val StatusNaFila = Color(0xFF9E9E9E) // Cinzento
-val StatusProduzindo = Color(0xFFFF9800) // Laranja
-val StatusFinalizado = Color(0xFF4CAF50) // Verde
+
+val PrimaryPurpleBlue = Color(0xFF2E33FF)
+val MediumBlue = Color(0xFF2B82FF)
+val DarkBlue = Color(0xFF032055)
+
+val AccentOrange = Color(0xFFFFA113)
+val WarningYellow = Color(0xFFFFE72A)
+val SuccessGreen = Color(0xFF2E7032)
+val ErrorRed = Color(0xFFD32F2F)
+
+
+val NeutralWhite = Color(0xFFFFFFFF)
+val NeutralBlack = Color(0xFF000000)
