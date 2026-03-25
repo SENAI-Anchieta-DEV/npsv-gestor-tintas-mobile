@@ -30,14 +30,14 @@ class LoginViewModel(private val repository: AuthRepository) : ViewModel() {
 
         _uiState.update { it.copy(isLoading = true, errorMessage = null) }
 
-
+        // Chamada real à API em vez do simulador antigo
         viewModelScope.launch {
-            kotlinx.coroutines.delay(1000)
+            val result = repository.login(email, senha)
 
-            if (email == "vendedor@loja.com" && senha == "123456") {
+            result.onSuccess {
                 _uiState.update { it.copy(isLoading = false, isLoginSuccessful = true) }
-            } else {
-                _uiState.update { it.copy(isLoading = false, errorMessage = "Credenciais inválidas. Tente vendedor@loja.com / 123456") }
+            }.onFailure { error ->
+                _uiState.update { it.copy(isLoading = false, errorMessage = error.message) }
             }
         }
     }

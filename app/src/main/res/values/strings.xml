@@ -15,4 +15,9 @@
     <string name="categoria_base">Base</string>
     <string name="categoria_pigmento">Pigmento</string>
     <string name="categoria_insumo">Insumo</string>
+
+    <string name="title_precos">Tabela de Preços</string>
+    <string name="title_prevendas">Nova Pré-Venda</string>
+    <string name="title_producao">Status de Produção</string>
+    <string name="btn_voltar">Voltar</string>
 </resources>

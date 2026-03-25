@@ -4,43 +4,40 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.senai.npsv_gestor_tintas_mobile.ui.estoque.EstoqueScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.login.LoginScreen
+import com.senai.npsv_gestor_tintas_mobile.ui.precos.PrecosScreen
+import com.senai.npsv_gestor_tintas_mobile.ui.prevendas.PreVendaScreen
+import com.senai.npsv_gestor_tintas_mobile.ui.producao.ProducaoScreen
 
 @Composable
-fun AppNavGraph(
-    navController: NavHostController,
-    startDestination: String = Routes.Login.route
-) {
+fun AppNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = startDestination
+        startDestination = Routes.Login.route
     ) {
         composable(Routes.Login.route) {
-            LoginScreen(
-
-                onLoginSuccess = {
-                    navController.navigate(Routes.Estoque.route) {
-
-                        popUpTo(Routes.Login.route) { inclusive = true }
-                    }
+            LoginScreen(onLoginSuccess = {
+                navController.navigate(Routes.Estoque.route) {
+                    popUpTo(Routes.Login.route) { inclusive = true }
                 }
-            )
+            })
         }
 
         composable(Routes.Estoque.route) {
-            // TODO: Inserir EstoqueScreen
+            EstoqueScreen() // Certifique-se que o import está correto
         }
 
         composable(Routes.Precos.route) {
-            // TODO: Inserir PrecosScreen
+            PrecosScreen()
         }
 
         composable(Routes.PreVenda.route) {
-            // TODO: Inserir PreVendaScreen
+            PreVendaScreen()
         }
 
         composable(Routes.Producao.route) {
-            // TODO: Inserir ProducaoScreen
+            ProducaoScreen()
         }
     }
 }
