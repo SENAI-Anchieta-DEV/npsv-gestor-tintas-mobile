@@ -14,11 +14,8 @@ object RetrofitCliente {
 
     fun criarServico(tokenStore: TokenStore): ApiService {
 
-
-        val interceptor = Interceptor { chain ->
+        val interceptorAuth = Interceptor { chain ->
             val requestBuilder = chain.request().newBuilder()
-
-
             val token = runBlocking { tokenStore.token.firstOrNull() }
 
             if (!token.isNullOrEmpty()) {
@@ -29,7 +26,7 @@ object RetrofitCliente {
         }
 
         val clienteOkHttp = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
+            .addInterceptor(interceptorAuth)
             .build()
 
         return Retrofit.Builder()
