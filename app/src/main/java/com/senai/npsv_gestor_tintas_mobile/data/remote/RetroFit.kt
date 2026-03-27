@@ -15,11 +15,16 @@ object RetrofitCliente {
     fun criarServico(tokenStore: TokenStore): ApiService {
 
         val interceptorAuth = Interceptor { chain ->
-            val requestBuilder = chain.request().newBuilder()
-            val token = runBlocking { tokenStore.token.firstOrNull() }
+            val request = chain.request()
+            val requestBuilder = request.newBuilder()
+            val caminhoDaUrl = request.url.encodedPath
 
-            if (!token.isNullOrEmpty()) {
-                requestBuilder.addHeader("Authorization", "Bearer $token")
+            // Só adiciona o token se NÃO for a rota de login ou cadastro
+            if (!caminhoDaUrl.contains("auth/login") && !caminhoDaUrl.contains("api/usuarios")) {
+                val token = runBlocking { tokenStore.token.firstOrNull() }
+                if (!token.isNullOrEmpty()) {
+                    requestBuilder.addHeader("Authorization", "Bearer $token")
+                }
             }
 
             chain.proceed(requestBuilder.build())

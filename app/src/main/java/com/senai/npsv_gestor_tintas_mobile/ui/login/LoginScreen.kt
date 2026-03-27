@@ -19,10 +19,9 @@ import com.senai.npsv_gestor_tintas_mobile.di.appModule.AppModule
 
 @Composable
 fun LoginScreen(
+    viewModel: LoginViewModel,
     onLoginSuccess: () -> Unit,
-    viewModel: LoginViewModel = viewModel(
-        factory = LoginViewModel.Factory(AppModule.provideAuthRepository(LocalContext.current))
-    )
+    onNavigateToRegister: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -111,5 +110,27 @@ fun LoginScreen(
         TextButton(onClick = { /* TODO */ }) {
             Text(stringResource(R.string.action_register), color = MaterialTheme.colorScheme.secondary)
         }
+    }
+    Button(
+        onClick = { viewModel.login(email, senha) },
+        modifier = Modifier.fillMaxWidth().height(50.dp),
+        enabled = !uiState.isLoading
+    ) {
+        if (uiState.isLoading) {
+            CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
+        } else {
+            Text(stringResource(R.string.btn_login))
+        }
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    // NOVO: Botão para navegar para a tela de Cadastro
+    TextButton(onClick = onNavigateToRegister) {
+        Text(
+            text = stringResource(R.string.btn_ir_para_cadastro),
+            color = MaterialTheme.colorScheme.primary,
+            fontWeight = FontWeight.SemiBold
+        )
     }
 }

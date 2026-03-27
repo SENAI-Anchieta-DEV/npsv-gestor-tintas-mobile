@@ -12,4 +12,6 @@ interface ApiService {
     suspend fun login(@Body request: LoginRequest): Response<AuthResponse>
 
 
+    @POST("api/usuarios")
+    suspend fun cadastrarUsuario(@Body request: CadastroUsuarioRequest): Response<Unit>
 }

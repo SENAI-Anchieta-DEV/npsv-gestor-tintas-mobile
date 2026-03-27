@@ -6,4 +6,5 @@ sealed class Routes(val route: String) {
     object Precos : Routes("precos")
     object PreVenda : Routes("pre_venda")
     object Producao : Routes("producao")
+    object CadastroUsuario : Routes("cadastro_usuario")
 }

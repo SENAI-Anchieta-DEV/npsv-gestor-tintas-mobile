@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Gestor Tintas</string>
+    <string name="btn_login">Entrar</string>
+    <string name="btn_ir_para_cadastro">Não tem uma conta? Cadastre-se</string>
+    <string name="subtitle_cadastro">Preencha os dados abaixo para criar sua conta</string>
 
     <string name="title_login">Gestor Tintas</string>
     <string name="subtitle_login">Portal do Vendedor</string>
@@ -20,4 +23,14 @@
     <string name="title_prevendas">Nova Pré-Venda</string>
     <string name="title_producao">Status de Produção</string>
     <string name="btn_voltar">Voltar</string>
+
+    <string name="title_cadastro_usuario">Novo Usuário</string>
+    <string name="label_nome">Nome completo</string>
+    <string name="label_email">E-mail</string>
+    <string name="label_senha">Senha</string>
+    <string name="btn_cadastrar">Cadastrar</string>
+    <string name="msg_erro_campos_vazios">Por favor, preencha todos os campos obrigatórios.</string>
+    <string name="msg_cadastro_sucesso">Usuário cadastrado com sucesso!</string>
+    <string name="btn_ok">OK</string>
+
 </resources>
