@@ -42,8 +42,8 @@ fun AppNavGraph(navController: NavHostController) {
                         popUpTo(Routes.Login.route) { inclusive = true }
                     }
                 },
-                onNavigateToRegister = {
-                    navController.navigate(Routes.CadastroUsuario.route)
+                onNavigateToCadastro = {
+                    navController.navigate(Routes.Cadastro.route)
                 }
             )
         }
@@ -62,9 +62,11 @@ fun AppNavGraph(navController: NavHostController) {
         composable(Routes.Producao.route) {
             ProducaoScreen()
         }
-        composable(Routes.CadastroUsuario.route) {
+
+        composable(Routes.Cadastro.route) {
             val apiService = RetrofitCliente.criarServico(TokenStore(LocalContext.current))
             val viewModel: UserRegistrationViewModel = viewModel(factory = UserRegistrationViewModel.Factory(apiService))
+
 
             UserRegistrationScreen(
                 viewModel = viewModel,

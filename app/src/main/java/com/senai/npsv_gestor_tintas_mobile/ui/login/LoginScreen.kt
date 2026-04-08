@@ -19,9 +19,11 @@ import com.senai.npsv_gestor_tintas_mobile.di.appModule.AppModule
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel,
     onLoginSuccess: () -> Unit,
-    onNavigateToRegister: () -> Unit
+    onNavigateToCadastro: () -> Unit,
+    viewModel: LoginViewModel = viewModel(
+        factory = LoginViewModel.Factory(AppModule.provideAuthRepository(LocalContext.current))
+    )
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -34,6 +36,7 @@ fun LoginScreen(
         }
     }
 
+    // A Column organiza tudo numa lista vertical
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -78,8 +81,7 @@ fun LoginScreen(
         )
 
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
-            TextButton(onClick = { /* TODO */ }) {
-
+            TextButton(onClick = { /* TODO: Esqueci a senha */ }) {
                 Text(stringResource(R.string.forgot_password), color = MaterialTheme.colorScheme.secondary)
             }
         }
@@ -91,6 +93,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(8.dp))
         }
 
+        // Botão de Entrar
         if (uiState.isLoading) {
             CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
         } else {
@@ -107,30 +110,9 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        TextButton(onClick = { /* TODO */ }) {
+        // Botão de Cadastrar
+        TextButton(onClick = onNavigateToCadastro) {
             Text(stringResource(R.string.action_register), color = MaterialTheme.colorScheme.secondary)
         }
-    }
-    Button(
-        onClick = { viewModel.login(email, senha) },
-        modifier = Modifier.fillMaxWidth().height(50.dp),
-        enabled = !uiState.isLoading
-    ) {
-        if (uiState.isLoading) {
-            CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
-        } else {
-            Text(stringResource(R.string.btn_login))
-        }
-    }
-
-    Spacer(modifier = Modifier.height(16.dp))
-
-    // NOVO: Botão para navegar para a tela de Cadastro
-    TextButton(onClick = onNavigateToRegister) {
-        Text(
-            text = stringResource(R.string.btn_ir_para_cadastro),
-            color = MaterialTheme.colorScheme.primary,
-            fontWeight = FontWeight.SemiBold
-        )
     }
 }
