@@ -31,7 +31,7 @@ fun UserRegistrationScreen(
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
 
-    // Feedback Visual: Dialog de Sucesso
+
     if (uiState.isSuccess) {
         AlertDialog(
             onDismissRequest = {
@@ -51,7 +51,7 @@ fun UserRegistrationScreen(
         )
     }
 
-    // Usamos um padding de 24.dp para as bordas não ficarem coladas na tela
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,7 +59,7 @@ fun UserRegistrationScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Ícone de cabeçalho
+
         Icon(
             imageVector = Icons.Default.Person,
             contentDescription = null,
@@ -68,7 +68,7 @@ fun UserRegistrationScreen(
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Título e Subtítulo
+
         Text(
             text = stringResource(R.string.title_cadastro_usuario),
             fontSize = 28.sp,
@@ -83,7 +83,7 @@ fun UserRegistrationScreen(
             modifier = Modifier.padding(top = 8.dp, bottom = 32.dp)
         )
 
-        // Campo: Nome
+
         OutlinedTextField(
             value = nome,
             onValueChange = { nome = it },
@@ -95,7 +95,7 @@ fun UserRegistrationScreen(
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Campo: E-mail
+
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
@@ -108,7 +108,7 @@ fun UserRegistrationScreen(
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Campo: Senha
+
         OutlinedTextField(
             value = senha,
             onValueChange = { senha = it },
@@ -122,7 +122,7 @@ fun UserRegistrationScreen(
         )
         Spacer(modifier = Modifier.height(24.dp)) // Mais respiro antes do botão
 
-        // Área de Erros (Validação e Backend)
+
         if (uiState.validationError != null) {
             Text(text = uiState.validationError!!, color = MaterialTheme.colorScheme.error, fontSize = 14.sp)
             Spacer(modifier = Modifier.height(16.dp))
@@ -132,7 +132,7 @@ fun UserRegistrationScreen(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        // Botão Cadastrar (Mais alto e arredondado)
+
         Button(
             onClick = { viewModel.cadastrarUsuario(nome, email, senha) },
             modifier = Modifier

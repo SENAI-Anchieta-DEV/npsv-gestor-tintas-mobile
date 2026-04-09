@@ -18,12 +18,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.senai.npsv_gestor_tintas_mobile.R
 import com.senai.npsv_gestor_tintas_mobile.domain.model.Produto
 
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EstoqueScreen(
-    viewModel: EstoqueViewModel = viewModel()
+    viewModel: EstoqueViewModel = viewModel(),
+    onNavigateToCadastro: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -32,12 +31,28 @@ fun EstoqueScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text(
-            text = stringResource(R.string.title_estoque),
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(R.string.title_estoque),
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
+
+
+            Button(
+                onClick = onNavigateToCadastro,
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
+            ) {
+                Text("Novo Usuário", fontSize = 14.sp)
+            }
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 

@@ -30,7 +30,7 @@ class LoginViewModel(private val repository: AuthRepository) : ViewModel() {
 
         _uiState.update { it.copy(isLoading = true, errorMessage = null) }
 
-        // Chamada real à API em vez do simulador antigo
+
         viewModelScope.launch {
             val result = repository.login(email, senha)
 

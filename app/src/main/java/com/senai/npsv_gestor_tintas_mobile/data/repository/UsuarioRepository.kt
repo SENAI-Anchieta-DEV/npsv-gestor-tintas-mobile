@@ -28,13 +28,13 @@ class UsuarioRepository(private val apiService: ApiService) {
 
         return try {
             val jsonObject = JSONObject(errorBody)
-            // Se for erro de validação de campos (@Valid)
+
             if (jsonObject.has("errors")) {
                 val errorsObj = jsonObject.getJSONObject("errors")
                 val primeiraChave = errorsObj.keys().next()
                 errorsObj.getJSONArray(primeiraChave).getString(0)
             } else {
-                // Se for erro de regra de negócio ou duplicação (RFC 7807)
+
                 jsonObject.optString("detail", "Ocorreu um erro ao realizar o registo.")
             }
         } catch (e: Exception) {

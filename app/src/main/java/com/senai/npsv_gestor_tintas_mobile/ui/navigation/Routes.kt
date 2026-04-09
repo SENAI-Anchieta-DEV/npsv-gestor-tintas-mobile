@@ -9,5 +9,5 @@ sealed class Routes(val route: String) {
 
     object Cadastro : Routes("cadastro")
 
-    //object CadastroUsuario : Routes("cadastro_usuario")//
+
 }

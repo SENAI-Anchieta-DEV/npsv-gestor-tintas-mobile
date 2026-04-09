@@ -20,7 +20,6 @@ import com.senai.npsv_gestor_tintas_mobile.di.appModule.AppModule
 @Composable
 fun LoginScreen(
     onLoginSuccess: () -> Unit,
-    onNavigateToCadastro: () -> Unit,
     viewModel: LoginViewModel = viewModel(
         factory = LoginViewModel.Factory(AppModule.provideAuthRepository(LocalContext.current))
     )
@@ -36,7 +35,7 @@ fun LoginScreen(
         }
     }
 
-    // A Column organiza tudo numa lista vertical
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -93,7 +92,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(8.dp))
         }
 
-        // Botão de Entrar
+
         if (uiState.isLoading) {
             CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
         } else {
@@ -110,9 +109,6 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botão de Cadastrar
-        TextButton(onClick = onNavigateToCadastro) {
-            Text(stringResource(R.string.action_register), color = MaterialTheme.colorScheme.secondary)
-        }
+
     }
 }

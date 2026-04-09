@@ -71,21 +71,21 @@ fun CadastroScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(horizontal = 24.dp) // Preenchimento horizontal consistente
-                .verticalScroll(rememberScrollState()), // Permite scroll para ecrãs pequenos
+                .padding(horizontal = 24.dp)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top // Começa no topo para organização
+            verticalArrangement = Arrangement.Top
         ) {
-            Spacer(modifier = Modifier.height(32.dp)) // Espaço inicial
+            Spacer(modifier = Modifier.height(32.dp))
 
             Text(
-                text = "Registar Utilizador",
+                text = "Cadastro de usuario",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
             )
 
-            Spacer(modifier = Modifier.height(32.dp)) // Espaço após o título
+            Spacer(modifier = Modifier.height(32.dp))
 
             // Campo: Nome Completo
             OutlinedTextField(
@@ -98,9 +98,8 @@ fun CadastroScreen(
                 singleLine = true
             )
 
-            Spacer(modifier = Modifier.height(16.dp)) // Espaço padrão entre campos
+            Spacer(modifier = Modifier.height(16.dp))
 
-            // Campo: E-mail
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -114,7 +113,6 @@ fun CadastroScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Campo: Senha
             OutlinedTextField(
                 value = senha,
                 onValueChange = { senha = it },
@@ -129,7 +127,7 @@ fun CadastroScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Campo: Perfil (Role)
+
             ExposedDropdownMenuBox(
                 expanded = roleExpanded,
                 onExpandedChange = { roleExpanded = !roleExpanded }

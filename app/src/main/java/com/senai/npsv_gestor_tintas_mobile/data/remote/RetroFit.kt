@@ -1,7 +1,7 @@
 package com.senai.npsv_gestor_tintas_mobile.data.remote
 
 import com.senai.npsv_gestor_tintas_mobile.data.local.TokenStore
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.first // <-- IMPORTANTE: Mudámos para first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -15,16 +15,13 @@ object RetrofitCliente {
     fun criarServico(tokenStore: TokenStore): ApiService {
 
         val interceptorAuth = Interceptor { chain ->
-            val request = chain.request()
-            val requestBuilder = request.newBuilder()
-            val caminhoDaUrl = request.url.encodedPath
+            val requestBuilder = chain.request().newBuilder()
 
-            // Só adiciona o token se NÃO for a rota de login ou cadastro
-            if (!caminhoDaUrl.contains("auth/login") && !caminhoDaUrl.contains("api/usuarios")) {
-                val token = runBlocking { tokenStore.token.firstOrNull() }
-                if (!token.isNullOrEmpty()) {
-                    requestBuilder.addHeader("Authorization", "Bearer $token")
-                }
+
+            val token = runBlocking { tokenStore.token.first() }
+
+            if (!token.isNullOrEmpty()) {
+                requestBuilder.addHeader("Authorization", "Bearer $token")
             }
 
             chain.proceed(requestBuilder.build())
