@@ -33,7 +33,7 @@ class EstoqueViewModel : ViewModel() {
     )
 
     init {
-        // Inicializa com todos os produtos
+
         _uiState.update { it.copy(produtos = produtosMock) }
     }
 

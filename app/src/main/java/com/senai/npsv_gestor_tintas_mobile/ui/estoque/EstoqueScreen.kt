@@ -22,7 +22,7 @@ import com.senai.npsv_gestor_tintas_mobile.domain.model.Produto
 @Composable
 fun EstoqueScreen(
     viewModel: EstoqueViewModel = viewModel(),
-    onNavigateToCadastro: () -> Unit
+    onNavigateToUsuarios: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -46,11 +46,11 @@ fun EstoqueScreen(
 
 
             Button(
-                onClick = onNavigateToCadastro,
+                onClick = onNavigateToUsuarios,
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
             ) {
-                Text("Novo Usuário", fontSize = 14.sp)
+                Text("Usuários", fontSize = 14.sp)
             }
         }
 

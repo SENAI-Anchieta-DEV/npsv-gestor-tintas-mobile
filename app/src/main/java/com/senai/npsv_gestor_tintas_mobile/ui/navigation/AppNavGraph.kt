@@ -10,6 +10,7 @@ import com.senai.npsv_gestor_tintas_mobile.ui.precos.PrecosScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.prevendas.PreVendaScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.producao.ProducaoScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.cadastro.CadastroScreen // IMPORT DO NOVO ECRÃ
+import com.senai.npsv_gestor_tintas_mobile.ui.usuarios.ListaUsuariosScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
@@ -28,11 +29,22 @@ fun AppNavGraph(navController: NavHostController) {
             )
         }
 
-
         composable(Routes.Estoque.route) {
             EstoqueScreen(
+                onNavigateToUsuarios = {
+                    navController.navigate(Routes.ListaUsuarios.route)
+                }
+            )
+        }
+
+
+        composable(Routes.ListaUsuarios.route) {
+            ListaUsuariosScreen(
                 onNavigateToCadastro = {
                     navController.navigate(Routes.Cadastro.route)
+                },
+                onNavigateBack = {
+                    navController.popBackStack()
                 }
             )
         }
