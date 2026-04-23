@@ -9,6 +9,8 @@ import com.senai.npsv_gestor_tintas_mobile.ui.login.LoginScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.precos.PrecosScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.prevendas.PreVendaScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.producao.ProducaoScreen
+import com.senai.npsv_gestor_tintas_mobile.ui.cadastro.CadastroScreen // IMPORT DO NOVO ECRÃ
+import com.senai.npsv_gestor_tintas_mobile.ui.usuarios.ListaUsuariosScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
@@ -16,16 +18,44 @@ fun AppNavGraph(navController: NavHostController) {
         navController = navController,
         startDestination = Routes.Login.route
     ) {
+
         composable(Routes.Login.route) {
-            LoginScreen(onLoginSuccess = {
-                navController.navigate(Routes.Estoque.route) {
-                    popUpTo(Routes.Login.route) { inclusive = true }
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate(Routes.Estoque.route) {
+                        popUpTo(Routes.Login.route) { inclusive = true }
+                    }
                 }
-            })
+            )
         }
 
         composable(Routes.Estoque.route) {
-            EstoqueScreen() // Certifique-se que o import está correto
+            EstoqueScreen(
+                onNavigateToUsuarios = {
+                    navController.navigate(Routes.ListaUsuarios.route)
+                }
+            )
+        }
+
+
+        composable(Routes.ListaUsuarios.route) {
+            ListaUsuariosScreen(
+                onNavigateToCadastro = {
+                    navController.navigate(Routes.Cadastro.route)
+                },
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+
+        composable(Routes.Cadastro.route) {
+            CadastroScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable(Routes.Precos.route) {

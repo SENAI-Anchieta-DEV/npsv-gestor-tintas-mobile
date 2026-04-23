@@ -35,6 +35,7 @@ fun LoginScreen(
         }
     }
 
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -79,8 +80,7 @@ fun LoginScreen(
         )
 
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
-            TextButton(onClick = { /* TODO */ }) {
-
+            TextButton(onClick = { /* TODO: Esqueci a senha */ }) {
                 Text(stringResource(R.string.forgot_password), color = MaterialTheme.colorScheme.secondary)
             }
         }
@@ -91,6 +91,7 @@ fun LoginScreen(
             Text(text = error, color = MaterialTheme.colorScheme.error)
             Spacer(modifier = Modifier.height(8.dp))
         }
+
 
         if (uiState.isLoading) {
             CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
@@ -108,8 +109,6 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        TextButton(onClick = { /* TODO */ }) {
-            Text(stringResource(R.string.action_register), color = MaterialTheme.colorScheme.secondary)
-        }
+
     }
 }

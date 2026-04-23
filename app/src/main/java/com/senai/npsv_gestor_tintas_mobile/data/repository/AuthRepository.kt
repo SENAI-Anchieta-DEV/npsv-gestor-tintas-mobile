@@ -11,14 +11,14 @@ class AuthRepository(
 ) {
     suspend fun login(email: String, senha: String): Result<Unit> {
         return try {
-            // Log para servir de Evidência para o seu DoD
+
             Log.d("API_NETWORK", "Iniciando chamada HTTP POST para /login com $email")
 
-            // Faz a chamada. O Retrofit devolve um "envelope" (Response)
+
             val response = apiService.login(LoginRequest(email, senha))
 
             if (response.isSuccessful) {
-                // Abre o envelope e pega o token
+
                 val token = response.body()?.token
 
                 if (token != null) {
@@ -46,7 +46,7 @@ class AuthRepository(
                 Result.failure(Exception(errorMessage))
             }
         } catch (e: Exception) {
-            // Cai aqui se não houver internet ou se o servidor estiver desligado
+
             Log.e("API_NETWORK", "Falha na rede: ${e.message}")
             Result.failure(Exception("Falha de conexão. Verifique se o servidor Spring Boot está rodando em 10.0.2.2:8080"))
         }
