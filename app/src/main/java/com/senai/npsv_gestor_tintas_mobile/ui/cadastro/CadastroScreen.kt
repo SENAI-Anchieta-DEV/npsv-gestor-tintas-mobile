@@ -87,7 +87,6 @@ fun CadastroScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Campo: Nome Completo
             OutlinedTextField(
                 value = nome,
                 onValueChange = { nome = it },

@@ -6,11 +6,14 @@ data class CategoriaProdutoDTO(
     val descricao: String? = null
 )
 
+
 data class ProdutoResponseDTO(
     val id: String,
+    val codigoBarras: String,
     val descricao: String,
     val quantidadeEstoque: Double,
+    val precoCusto: Double,
+    val precoVenda: Double,
     val unidadeMedida: String,
-    val estoqueMinimo: Double? = null,
     val categoria: CategoriaProdutoDTO?
 )

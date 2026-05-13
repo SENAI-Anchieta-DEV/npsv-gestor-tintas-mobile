@@ -40,18 +40,12 @@ class EstoqueViewModel(private val repository: ProdutoRepository) : ViewModel() 
             repository.listarProdutos()
                 .onSuccess { lista ->
                     _uiState.update {
-                        it.copy(
-                            isLoading = false,
-                            produtosOriginais = lista,
-                            produtosExibidos = lista
-                        )
+                        it.copy(isLoading = false, produtosOriginais = lista, produtosExibidos = lista)
                     }
-                    aplicarFiltros() // Re-aplica filtros caso algo já estivesse digitado
+                    aplicarFiltros()
                 }
                 .onFailure { erro ->
-                    _uiState.update {
-                        it.copy(isLoading = false, errorMessage = erro.message)
-                    }
+                    _uiState.update { it.copy(isLoading = false, errorMessage = erro.message) }
                 }
         }
     }
@@ -69,10 +63,9 @@ class EstoqueViewModel(private val repository: ProdutoRepository) : ViewModel() 
     private fun aplicarFiltros() {
         val estadoAtual = _uiState.value
         val filtrados = estadoAtual.produtosOriginais.filter { produto ->
-            // Filtro por Nome/Descrição (Ignorando maiúsculas e minúsculas)
-            val matchBusca = produto.descricao.contains(estadoAtual.searchQuery, ignoreCase = true)
+            val matchBusca = produto.descricao.contains(estadoAtual.searchQuery, ignoreCase = true) ||
+                    produto.codigoBarras.contains(estadoAtual.searchQuery, ignoreCase = true)
 
-            // Filtro por Categoria
             val matchCategoria = if (estadoAtual.categoriaSelecionada == CategoriaEstoque.TUDO) {
                 true
             } else {
@@ -84,7 +77,6 @@ class EstoqueViewModel(private val repository: ProdutoRepository) : ViewModel() 
         _uiState.update { it.copy(produtosExibidos = filtrados) }
     }
 
-    // Factory para Injeção do Repositório
     class Factory(private val repository: ProdutoRepository) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

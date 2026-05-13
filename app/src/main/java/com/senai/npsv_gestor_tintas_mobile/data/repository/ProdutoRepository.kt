@@ -12,25 +12,25 @@ class ProdutoRepository(private val apiService: ApiService) {
             if (response.isSuccessful) {
                 val listaDto = response.body() ?: emptyList()
 
-                // Converte o DTO da API para o nosso Modelo do App
                 val listaProdutos = listaDto.map { dto ->
                     Produto(
                         id = dto.id,
+                        codigoBarras = dto.codigoBarras,
                         descricao = dto.descricao,
-                        categoria = dto.categoria?.nome ?: "Sem Categoria",
                         quantidadeEstoque = dto.quantidadeEstoque,
+                        precoCusto = dto.precoCusto,
+                        precoVenda = dto.precoVenda,
                         unidadeMedida = dto.unidadeMedida,
-                        // Prevenção: caso o backend não envie, assume 10.0 como alerta padrão
-                        estoqueMinimo = dto.estoqueMinimo ?: 10.0
+                        categoria = dto.categoria?.nome ?: "Sem Categoria"
                     )
                 }
                 Result.success(listaProdutos)
             } else {
-                Result.failure(Exception("Erro na resposta do servidor: Código ${response.code()}"))
+                Result.failure(Exception("Erro na resposta: ${response.code()}"))
             }
         } catch (e: Exception) {
             Log.e("ProdutoRepository", "Erro de rede: ${e.message}")
-            Result.failure(Exception("Falha de conexão. Verifique a rede."))
+            Result.failure(Exception("Falha de conexão ao carregar estoque."))
         }
     }
 }

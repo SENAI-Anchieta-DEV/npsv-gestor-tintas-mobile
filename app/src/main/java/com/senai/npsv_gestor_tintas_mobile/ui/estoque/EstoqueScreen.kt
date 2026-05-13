@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
@@ -13,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +27,10 @@ import com.senai.npsv_gestor_tintas_mobile.R
 import com.senai.npsv_gestor_tintas_mobile.data.local.TokenStore
 import com.senai.npsv_gestor_tintas_mobile.data.remote.RetrofitCliente
 import com.senai.npsv_gestor_tintas_mobile.data.repository.ProdutoRepository
+import com.senai.npsv_gestor_tintas_mobile.domain.model.NivelEstoque
 import com.senai.npsv_gestor_tintas_mobile.domain.model.Produto
+import java.text.NumberFormat
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,7 +50,6 @@ fun EstoqueScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -56,31 +61,28 @@ fun EstoqueScreen(
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
             )
-
             Button(
                 onClick = onNavigateToUsuarios,
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
             ) {
-                Text("Usuários", fontSize = 14.sp)
+                Text("Utilizadores", fontSize = 14.sp)
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-
         OutlinedTextField(
             value = uiState.searchQuery,
             onValueChange = { viewModel.onSearchQueryChanged(it) },
             modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text(stringResource(R.string.search_placeholder_estoque)) },
+            placeholder = { Text("Buscar por nome ou código de barras...") },
             leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Buscar") },
             shape = RoundedCornerShape(8.dp),
             singleLine = true
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -109,7 +111,6 @@ fun EstoqueScreen(
         }
 
         Spacer(modifier = Modifier.height(16.dp))
-
 
         Box(modifier = Modifier.fillMaxSize()) {
             when {
@@ -152,6 +153,13 @@ fun EstoqueScreen(
 
 @Composable
 fun ProdutoCard(produto: Produto) {
+    val formatoMoeda = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+    val (corFundo, corTexto, icone, textoTag) = when (produto.nivelEstoque) {
+        NivelEstoque.BAIXO -> listOf(MaterialTheme.colorScheme.errorContainer, MaterialTheme.colorScheme.onErrorContainer, Icons.Default.Warning, "Estoque Baixo")
+        NivelEstoque.MEDIO -> listOf(Color(0xFFFFF3E0), Color(0xFFE65100), Icons.Default.Info, "Estoque Médio")
+        NivelEstoque.ALTO -> listOf(Color(0xFFE8F5E9), Color(0xFF2E7D32), Icons.Default.CheckCircle, "Estoque Adequado")
+    }
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
@@ -165,45 +173,42 @@ fun ProdutoCard(produto: Produto) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
-
                 Text(
                     text = produto.descricao,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                Spacer(modifier = Modifier.height(4.dp))
+
 
                 Text(
-                    text = produto.categoria,
+                    text = "Cod: ${produto.codigoBarras} | ${produto.categoria.uppercase()}",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 12.sp
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
                 )
 
 
-                if (produto.isEstoqueBaixo) {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(4.dp))
-                            .background(MaterialTheme.colorScheme.errorContainer)
-                            .padding(horizontal = 6.dp, vertical = 4.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Warning,
-                            contentDescription = "Aviso de Estoque",
-                            tint = MaterialTheme.colorScheme.onErrorContainer,
-                            modifier = Modifier.size(14.dp)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = "Estoque Crítico",
-                            color = MaterialTheme.colorScheme.onErrorContainer,
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(corFundo as Color)
+                        .padding(horizontal = 6.dp, vertical = 4.dp)
+                ) {
+                    Icon(
+                        imageVector = icone as androidx.compose.ui.graphics.vector.ImageVector,
+                        contentDescription = "Status",
+                        tint = corTexto as Color,
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = textoTag as String,
+                        color = corTexto,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
 
@@ -212,9 +217,15 @@ fun ProdutoCard(produto: Produto) {
                 Text(
                     text = "${produto.quantidadeEstoque} ${produto.unidadeMedida}",
                     fontWeight = FontWeight.Bold,
-
-                    color = if (produto.isEstoqueBaixo) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary,
-                    fontSize = 18.sp
+                    color = if (produto.nivelEstoque == NivelEstoque.BAIXO) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary,
+                    fontSize = 20.sp
+                )
+                Text(
+                    text = formatoMoeda.format(produto.precoVenda),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(top = 4.dp)
                 )
             }
         }
