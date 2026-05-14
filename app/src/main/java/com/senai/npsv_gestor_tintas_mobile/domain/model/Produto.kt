@@ -1,7 +1,7 @@
 package com.senai.npsv_gestor_tintas_mobile.domain.model
 
 enum class NivelEstoque {
-    BAIXO, MEDIO, ALTO
+    BAIXO, ALTO
 }
 
 data class Produto(
@@ -12,12 +12,9 @@ data class Produto(
     val precoCusto: Double,
     val precoVenda: Double,
     val unidadeMedida: String,
-    val categoria: String
+    val categoria: String,
+    val estoqueMinimo: Double // Variável que vem da API
 ) {
     val nivelEstoque: NivelEstoque
-        get() = when {
-            quantidadeEstoque <= 10.0 -> NivelEstoque.BAIXO
-            quantidadeEstoque <= 50.0 -> NivelEstoque.MEDIO
-            else -> NivelEstoque.ALTO
-        }
+        get() = if (quantidadeEstoque <= estoqueMinimo) NivelEstoque.BAIXO else NivelEstoque.ALTO
 }

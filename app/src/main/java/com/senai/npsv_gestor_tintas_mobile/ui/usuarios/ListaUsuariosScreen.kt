@@ -37,7 +37,6 @@ fun ListaUsuariosScreen(
 
     val uiState by viewModel.uiState.collectAsState()
 
-    // Carrega os dados sempre que a tela for aberta (útil ao voltar do ecrã de cadastro)
     LaunchedEffect(Unit) {
         viewModel.carregarUsuarios()
     }

@@ -15,5 +15,7 @@ data class ProdutoResponseDTO(
     val precoCusto: Double,
     val precoVenda: Double,
     val unidadeMedida: String,
-    val categoria: CategoriaProdutoDTO?
+    val categoria: CategoriaProdutoDTO,
+    val estoqueMinimo: Double
 )
+

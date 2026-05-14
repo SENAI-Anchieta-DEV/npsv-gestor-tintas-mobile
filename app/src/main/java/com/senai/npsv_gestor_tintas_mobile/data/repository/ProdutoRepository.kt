@@ -12,6 +12,7 @@ class ProdutoRepository(private val apiService: ApiService) {
             if (response.isSuccessful) {
                 val listaDto = response.body() ?: emptyList()
 
+                // Converte DTO da API para o nosso Modelo Inteligente do App
                 val listaProdutos = listaDto.map { dto ->
                     Produto(
                         id = dto.id,
@@ -21,7 +22,9 @@ class ProdutoRepository(private val apiService: ApiService) {
                         precoCusto = dto.precoCusto,
                         precoVenda = dto.precoVenda,
                         unidadeMedida = dto.unidadeMedida,
-                        categoria = dto.categoria?.nome ?: "Sem Categoria"
+                        categoria = dto.categoria?.nome ?: "Sem Categoria",
+                        // Mapeamento essencial: Pega o valor da API ou assume 10.0 como padrão de segurança se vier nulo
+                        estoqueMinimo = dto.estoqueMinimo ?: 10.0
                     )
                 }
                 Result.success(listaProdutos)

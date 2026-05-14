@@ -153,11 +153,21 @@ fun EstoqueScreen(
 
 @Composable
 fun ProdutoCard(produto: Produto) {
-    val formatoMoeda = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+    val formatoMoeda = java.text.NumberFormat.getCurrencyInstance(java.util.Locale("pt", "BR"))
+
     val (corFundo, corTexto, icone, textoTag) = when (produto.nivelEstoque) {
-        NivelEstoque.BAIXO -> listOf(MaterialTheme.colorScheme.errorContainer, MaterialTheme.colorScheme.onErrorContainer, Icons.Default.Warning, "Estoque Baixo")
-        NivelEstoque.MEDIO -> listOf(Color(0xFFFFF3E0), Color(0xFFE65100), Icons.Default.Info, "Estoque Médio")
-        NivelEstoque.ALTO -> listOf(Color(0xFFE8F5E9), Color(0xFF2E7D32), Icons.Default.CheckCircle, "Estoque Adequado")
+        NivelEstoque.BAIXO -> listOf(
+            MaterialTheme.colorScheme.errorContainer,
+            MaterialTheme.colorScheme.onErrorContainer,
+            Icons.Default.Warning,
+            "Estoque Baixo"
+        )
+        NivelEstoque.ALTO -> listOf(
+            Color(0xFFE8F5E9),
+            Color(0xFF2E7D32),
+            Icons.Default.CheckCircle,
+            "Estoque Adequado"
+        )
     }
 
     Card(
@@ -180,14 +190,12 @@ fun ProdutoCard(produto: Produto) {
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
-
                 Text(
                     text = "Cod: ${produto.codigoBarras} | ${produto.categoria.uppercase()}",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp,
                     modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
                 )
-
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -211,7 +219,6 @@ fun ProdutoCard(produto: Produto) {
                     )
                 }
             }
-
 
             Column(horizontalAlignment = Alignment.End) {
                 Text(
