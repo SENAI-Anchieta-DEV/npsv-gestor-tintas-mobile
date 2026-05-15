@@ -21,4 +21,8 @@ interface ApiService {
 
     @GET("api/usuarios")
     suspend fun listarUsuarios(): Response<List<UsuarioResponseDTO>>
+
+    @GET("api/produtos")
+    suspend fun listarProdutos(): Response<List<ProdutoResponseDTO>>
+
 }
