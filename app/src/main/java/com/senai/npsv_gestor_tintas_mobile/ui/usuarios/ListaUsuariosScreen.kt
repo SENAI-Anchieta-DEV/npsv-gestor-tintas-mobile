@@ -44,7 +44,7 @@ fun ListaUsuariosScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Gestão de Utilizadores") },
+                title = { Text("Gestão de Usuarios") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Voltar")
@@ -63,7 +63,7 @@ fun ListaUsuariosScreen(
                 containerColor = MaterialTheme.colorScheme.secondary,
                 contentColor = MaterialTheme.colorScheme.onSecondary
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Adicionar Utilizador")
+                Icon(Icons.Default.Add, contentDescription = "Adicionar Usuarios")
             }
         }
     ) { paddingValues ->
@@ -102,7 +102,7 @@ fun ListaUsuariosScreen(
                     if (usuarios.isEmpty()) {
 
                         Text(
-                            text = "Nenhum utilizador encontrado.",
+                            text = "Nenhum usuario encontrado.",
                             fontSize = 18.sp,
                             color = Color.Gray,
                             modifier = Modifier.align(Alignment.Center)
