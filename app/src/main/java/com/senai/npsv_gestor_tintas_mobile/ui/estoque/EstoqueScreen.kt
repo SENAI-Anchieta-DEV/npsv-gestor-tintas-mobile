@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
@@ -35,7 +34,8 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EstoqueScreen(
-    onNavigateToUsuarios: () -> Unit
+    onNavigateToUsuarios: () -> Unit,
+    onNavigateToPrecos: () -> Unit
 ) {
     val context = LocalContext.current
     val tokenStore = remember { TokenStore(context) }
@@ -61,12 +61,23 @@ fun EstoqueScreen(
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
             )
-            Button(
-                onClick = onNavigateToUsuarios,
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
-                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
-            ) {
-                Text("Utilizadores", fontSize = 14.sp)
+
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button(
+                    onClick = onNavigateToPrecos,
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
+                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
+                ) {
+                    Text("Preços", fontSize = 14.sp)
+                }
+
+                Button(
+                    onClick = onNavigateToUsuarios,
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
+                ) {
+                    Text("Usuários", fontSize = 14.sp)
+                }
             }
         }
 
@@ -153,21 +164,11 @@ fun EstoqueScreen(
 
 @Composable
 fun ProdutoCard(produto: Produto) {
-    val formatoMoeda = java.text.NumberFormat.getCurrencyInstance(java.util.Locale("pt", "BR"))
+    val formatoMoeda = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
 
     val (corFundo, corTexto, icone, textoTag) = when (produto.nivelEstoque) {
-        NivelEstoque.BAIXO -> listOf(
-            MaterialTheme.colorScheme.errorContainer,
-            MaterialTheme.colorScheme.onErrorContainer,
-            Icons.Default.Warning,
-            "Estoque Baixo"
-        )
-        NivelEstoque.ALTO -> listOf(
-            Color(0xFFE8F5E9),
-            Color(0xFF2E7D32),
-            Icons.Default.CheckCircle,
-            "Estoque Adequado"
-        )
+        NivelEstoque.BAIXO -> listOf(MaterialTheme.colorScheme.errorContainer, MaterialTheme.colorScheme.onErrorContainer, Icons.Default.Warning, "Estoque Baixo")
+        NivelEstoque.ALTO -> listOf(Color(0xFFE8F5E9), Color(0xFF2E7D32), Icons.Default.CheckCircle, "Estoque Adequado")
     }
 
     Card(
@@ -213,7 +214,7 @@ fun ProdutoCard(produto: Produto) {
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = textoTag as String,
-                        color = corTexto,
+                        color = corTexto as Color,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold
                     )

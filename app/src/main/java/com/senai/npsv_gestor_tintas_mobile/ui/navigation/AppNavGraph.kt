@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.senai.npsv_gestor_tintas_mobile.ui.cadastro.CadastroScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.estoque.EstoqueScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.login.LoginScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.precos.PrecosScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.prevendas.PreVendaScreen
 import com.senai.npsv_gestor_tintas_mobile.ui.producao.ProducaoScreen
-import com.senai.npsv_gestor_tintas_mobile.ui.cadastro.CadastroScreen // IMPORT DO NOVO ECRÃ
 import com.senai.npsv_gestor_tintas_mobile.ui.usuarios.ListaUsuariosScreen
 
 @Composable
@@ -18,7 +18,6 @@ fun AppNavGraph(navController: NavHostController) {
         navController = navController,
         startDestination = Routes.Login.route
     ) {
-
         composable(Routes.Login.route) {
             LoginScreen(
                 onLoginSuccess = {
@@ -33,10 +32,12 @@ fun AppNavGraph(navController: NavHostController) {
             EstoqueScreen(
                 onNavigateToUsuarios = {
                     navController.navigate(Routes.ListaUsuarios.route)
+                },
+                onNavigateToPrecos = {
+                    navController.navigate(Routes.Precos.route)
                 }
             )
         }
-
 
         composable(Routes.ListaUsuarios.route) {
             ListaUsuariosScreen(
@@ -49,7 +50,6 @@ fun AppNavGraph(navController: NavHostController) {
             )
         }
 
-
         composable(Routes.Cadastro.route) {
             CadastroScreen(
                 onNavigateBack = {
@@ -59,7 +59,11 @@ fun AppNavGraph(navController: NavHostController) {
         }
 
         composable(Routes.Precos.route) {
-            PrecosScreen()
+            PrecosScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable(Routes.PreVenda.route) {
