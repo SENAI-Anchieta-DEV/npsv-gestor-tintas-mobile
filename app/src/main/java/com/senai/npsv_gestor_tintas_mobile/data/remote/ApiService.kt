@@ -4,6 +4,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 data class LoginRequest(val email: String, val senha: String)
 data class AuthResponse(val token: String)
@@ -24,5 +25,8 @@ interface ApiService {
 
     @GET("api/produtos")
     suspend fun listarProdutos(): Response<List<ProdutoResponseDTO>>
+
+    @GET("api/producoes/{id}/pesagem/atual")
+    suspend fun getPesagemAtual(@Path("id") producaoId: String): Response<PesagemAtualResponseDTO>
 
 }
