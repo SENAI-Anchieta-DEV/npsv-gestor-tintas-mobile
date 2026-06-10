@@ -36,4 +36,8 @@ class TokenStore(private val context: Context) {
             preferences.remove(JWT_TOKEN_KEY)
         }
     }
+
+    fun getToken() {
+        TODO("Not yet implemented")
+    }
 }
